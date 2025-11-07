@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bambu Lab 拓竹 3D打印機</title>
+  <style>
+    :root {
+      --main-color: #15ff77;
+      --bg-dark: #141414;
+      --text-main: #15ff77;
+      --text-light: #baffd1;
+      --card-bg: #1a1a1a;
+      --btn-green: #15ff77;
+      --btn-dark: #0a1f11;
+    }
+    body {
+      background: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Noto Sans TC', 'Microsoft JhengHei', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .navbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      background: #181818;
+      border-bottom: 1.5px solid #222;
+      padding: 0;
+    }
+    .navbar .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--main-color);
+      letter-spacing: 2px;
+      margin: 12px 24px 12px 0;
+      text-decoration: none;
+    }
+    .navbar .nav-link {
+      color: var(--text-main);
+      text-decoration: none;
+      margin: 0 12px;
+      font-size: 1.05rem;
+      padding: 10px 0;
+      transition: color 0.2s;
+      border-bottom: 2px solid transparent;
+    }
+    .navbar .nav-link.active,
+    .navbar .nav-link:hover {
+      color: var(--main-color);
+      border-bottom: 2px solid var(--main-color);
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 18px 50px 18px;
+    }
+    h1, h2, h3 {
+      color: var(--main-color);
+      letter-spacing: 1.5px;
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-top: 0;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    h2 {
+      font-size: 1.3rem;
+      margin-top: 36px;
+      margin-bottom: 14px;
+    }
+    h3 {
+      font-size: 1.08rem;
+      margin-bottom: 7px;
+      margin-top: 24px;
+    }
+    .product-series {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 44px;
+    }
+    .product-card {
+      background: var(--card-bg);
+      border-radius: 11px;
+      box-shadow: 0 2px 8px #0002;
+      padding: 22px 18px 18px 18px;
+      width: 320px;
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: box-shadow 0.2s;
+      margin-bottom: 10px;
+    }
+    .product-card:hover {
+      box-shadow: 0 6px 20px #0007;
+    }
+    .product-card img {
+      width: 100%;
+      border-radius: 7px;
+      margin-bottom: 13px;
+      background: #222;
+      object-fit: contain;
+      max-height: 200px;
+    }
+    .product-card .model {
+      font-weight: bold;
+      font-size: 1.18rem;
+      color: var(--main-color);
+      margin-bottom: 7px;
+      letter-spacing: 1px;
+    }
+    .product-card .desc {
+      color: var(--text-light);
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+    .product-card .features {
+      list-style: disc inside;
+      font-size: 0.96rem;
+      color: var(--text-main);
+      margin-bottom: 0;
+      margin-top: 2px;
+      padding-left: 0;
+    }
+    .product-card .price {
+      margin: 10px 0 0 0;
+      color: #fff;
+      background: #222;
+      padding: 3px 11px;
+      border-radius: 7px;
+      font-weight: bold;
+      font-size: 1.09rem;
+      letter-spacing: 1px;
+      border: 1px solid var(--main-color);
+      color: var(--main-color);
+      display: inline-block;
+    }
+    .series-nav {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+    .series-nav button {
+      background: #191919;
+      color: var(--main-color);
+      border: 1.5px solid var(--main-color);
+      border-radius: 8px;
+      padding: 7px 22px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      outline: none;
+    }
+    .series-nav button.active,
+    .series-nav button:hover {
+      background: var(--main-color);
+      color: #111;
+    }
+    .about-section {
+      color: var(--text-main);
+      max-width: 700px;
+      margin: 0 auto;
+      background: rgba(25,25,25,0.95);
+      border-radius: 14px;
+      padding: 32px 18px 32px 18px;
+      box-shadow: 0 6px 24px #0005;
+    }
+    .about-section ul {
+      margin-left: 1.3em;
+    }
+    .about-section .highlight {
+      color: var(--main-color);
+      font-weight: bold;
+    }
+    /* Whatsapp */
+    .whatsapp-btn {
+      display: flex;
+      align-items: center;
+      background: var(--btn-dark);
+      color: var(--main-color);
+      border: 2px solid var(--btn-green);
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.15rem;
+      text-decoration: none;
+      margin: 20px auto 32px auto;
+      transition: background 0.2s;
+      width: max-content;
+      gap: 10px;
+    }
+    .whatsapp-btn:hover {
+      background: var(--main-color);
+      color: #111;
+    }
+    .whatsapp-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--main-color);
+      vertical-align: middle;
+    }
+    .whatsapp-btn:hover svg {
+      fill: #111;
+    }
+    /* Contact Form */
+    .contact-form {
+      background: #181f17;
+      border-radius: 10px;
+      max-width: 450px;
+      margin: 0 auto 30px auto;
+      padding: 26px 18px 20px 18px;
+      box-shadow: 0 3px 15px #0005;
+      color: var(--main-color);
+    }
+    .contact-form label {
+      font-weight: bold;
+      color: var(--main-color);
+      display: block;
+      margin-bottom: 6px;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 8px 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1.5px solid #3a6;
+      background: #0d1711;
+      color: var(--main-color);
+      font-size: 1rem;
+      resize: vertical;
+    }
+    .contact-form button {
+      background: var(--main-color);
+      color: #181f17;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 7px;
+      font-weight: bold;
+      font-size: 1.08rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .contact-form button:hover {
+      background: #11b955;
+      color: #fff;
+    }
+    /* FAQ */
+    .faq-section {
+      max-width: 700px;
+      margin: 0 auto 30px auto;
+      background: #161d13;
+      border-radius: 12px;
+      padding: 26px 14px 20px 14px;
+    }
+    .faq-item {
+      margin-bottom: 18px;
+    }
+    .faq-q {
+      color: var(--main-color);
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
+      margin-bottom: 7px;
+      font-size: 1.07rem;
+      background: none;
+      border: none;
+      padding: 0;
+      outline: none;
+      width: 100%;
+      text-align: left;
+    }
+    .faq-q:hover { color: #9fffcb; }
+    .faq-a {
+      color: var(--text-light);
+      margin-left: 7px;
+      display: none;
+      font-size: 0.97rem;
+    }
+    /* 圖片表格 */
+    .img-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 23px;
+      margin-bottom: 40px;
+    }
+    .img-grid-img {
+      background: #0a1f11;
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 8px;
+      text-align: center;
+      box-shadow: 0 2px 12px #0009;
+    }
+    .img-grid-img img {
+      width: 98%;
+      border-radius: 7px;
+      object-fit: contain;
+      max-height: 250px;
+      margin-bottom: 8px;
+      background: #222;
+    }
+    @media (max-width: 900px) {
+      .product-series {
+        flex-direction: column;
+        align-items: center;
+      }
+      .product-card {
+        width: 96vw;
+        max-width: 340px;
+      }
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px 2vw 36px 2vw;
+      }
+      h1 { font-size: 1.3rem; }
+      h2 { font-size: 1.07rem; }
+      .about-section { padding: 21px 5vw 21px 5vw; }
+      .navbar { font-size: 0.98rem; flex-direction: column; }
+      .navbar .logo { margin: 12px 0 8px 0; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a class="logo" href="javascript:void(0);" onclick="showPage('home')">Bambu Lab 拓竹</a>
+    <a class="nav-link active" id="nav-home" href="javascript:void(0);" onclick="showPage('home')">首頁</a>
+    <a class="nav-link" id="nav-a" href="javascript:void(0);" onclick="showPage('a-series')">A系列</a>
+    <a class="nav-link" id="nav-h" href="javascript:void(0);" onclick="showPage('h-series')">H系列</a>
+    <a class="nav-link" id="nav-p" href="javascript:void(0);" onclick="showPage('p-series')">P系列</a>
+    <a class="nav-link" id="nav-about" href="javascript:void(0);" onclick="showPage('about')">關於我們</a>
+    <a class="nav-link" id="nav-contact" href="javascript:void(0);" onclick="showPage('contact')">聯絡我們</a>
+  </nav>
+
+  <div class="container">
+    <!-- 主頁 -->
+    <section id="page-home">
+      <h1>Bambu Lab 拓竹 3D打印機</h1>
+      <a class="whatsapp-btn" target="_blank" href="https://wa.me/85254442474">
+        <svg viewBox="0 0 32 32"><path d="M16 3C9.383 3 4 8.383 4 15c0 2.417.687 4.678 1.987 6.676L4.06 29.032a1 1 0 0 0 1.246 1.246l7.356-1.927A11.93 11.93 0 0 0 16 27c6.617 0 12-5.383 12-12S22.617 3 16 3zm0 2c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10a9.95 9.95 0 0 1-4.766-1.215l-.376-.207-5.162 1.353 1.353-5.162-.207-.376A9.95 9.95 0 0 1 6 15c0-5.523 4.477-10 10-10zm-4.318 6.015c-.305 0-.606.011-.888.06a2.273 2.273 0 0 0-1.14 3.877c.063.062.125.125.187.187.32.318.635.648.964.964.332.319.7.594 1.057.876.261.207.531.393.809.574.278.182.552.366.848.516.33.17.686.305 1.047.399.225.06.498.145.76.084.267-.062.507-.239.672-.402.146-.146.271-.304.385-.45.326-.416.368-.999.104-1.444-.101-.17-.215-.33-.338-.478a.998.998 0 0 0-.224-.187c-.094-.064-.188-.127-.282-.186a2.637 2.637 0 0 1-.843-.676c-.094-.109-.186-.22-.276-.333-.086-.11-.168-.223-.246-.338-.13-.195-.252-.4-.373-.601-.08-.132-.158-.265-.236-.399-.12-.204-.242-.406-.36-.613-.058-.103-.114-.208-.17-.315-.06-.116-.123-.226-.189-.336-.104-.183-.241-.36-.401-.524-.13-.132-.291-.256-.449-.32zm.035 1.957c.023.037.048.075.073.113.118.187.24.381.36.571.057.093.112.188.167.283.116.201.234.399.348.594.073.123.147.245.222.367.09.142.18.285.275.423.129.178.27.331.409.454.322.283.644.565.973.838.093.077.187.153.281.229.07.058.141.116.211.174.006.004.013.007.02.01a.174.174 0 0 0 .029.004l-.004-.004c-.012-.037-.027-.075-.048-.111-.072-.127-.154-.251-.241-.371-.076-.104-.154-.207-.234-.308-.094-.122-.188-.243-.282-.365-.059-.075-.118-.149-.177-.225-.117-.146-.236-.293-.354-.438-.06-.074-.12-.147-.18-.22-.073-.089-.148-.176-.222-.262-.016-.018-.033-.035-.05-.052-.003-.004-.005-.007-.008-.01zm2.513.03c.062.004.12.025.173.062.058.04.117.084.176.13.076.06.153.121.229.18.123.099.246.196.369.295.091.073.18.148.268.224.093.08.184.162.274.246.064.06.127.12.191.181.003.003.006.006.008.009.02.024.04.048.059.073-.002 0-.003-.002-.003-.002a.173.173 0 0 0-.005-.029c-.003-.007-.006-.014-.01-.021-.058-.07-.116-.141-.174-.211-.076-.092-.153-.184-.229-.276-.074-.091-.147-.182-.22-.273-.103-.13-.206-.26-.309-.391-.036-.045-.072-.09-.109-.134zm3.334 2.484a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+        Whatsapp查詢 +852 5444 2474
+      </a>
+      <div class="img-grid">
+        <div class="img-grid-img">
+          <img src="https://i.imgur.com/1Qp6rIy.jpg" alt="Bambu Lab A1">
+          <div>Bambu Lab A1</div>
+        </div>
+        <div class="img-grid-img">
+          <img src="https://i.imgur.com/2fCwT2k.jpg" alt="Bambu Lab A1 mini">
+          <div>Bambu Lab A1 mini</div>
+        </div>
+        <div class="img-grid-img">
+          <img src="https://i.imgur.com/N6Q6M5J.jpg" alt="Bambu Lab AMS 2 Pro">
+          <div>Bambu Lab AMS 2 Pro</div>
+        </div>
+        <div class="img-grid-img">
+          <img src="https://i.imgur.com/cCa7Y2X.jpg" alt="Bambu Lab H2D">
+          <div>Bambu Lab H2D</div>
+        </div>
+        <div class="img-grid-img">
+          <img src="https://i.imgur.com/JQ6CR5y.jpg" alt="Bambu Lab H2D Pro">
+          <div>Bambu Lab H2D Pro</div>
+        </div>
+        <div class="img-grid-img">
+          <img src="https://i.imgur.com/y0MyJ1i.jpg" alt="Bambu Lab H2S">
+          <div>Bambu Lab H2S</div>
+        </div>
+        <div class="img-grid-img">
+          <img src="https://i.imgur.com/y0MyJ1i.jpg" alt="Bambu Lab H2S">
+          <div>Bambu Lab H2S</div>
+        </div>
+        <div class="img-grid-img">
+          <img src="https://i.imgur.com/KyQy3y6.jpg" alt="Bambu Lab P1S">
+          <div>Bambu Lab P1S</div>
+        </div>
+        <div class="img-grid-img">
+          <img src="https://i.imgur.com/1Bv8b4L.jpg" alt="Bambu Lab P2S">
+          <div>Bambu Lab P2S</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- A系列分頁 -->
+    <section id="page-a-series" style="display:none;">
+      <h1>A系列 3D打印機</h1>
+      <div class="product-series">
+        <div class="product-card">
+          <img src="https://i.imgur.com/1Qp6rIy.jpg" alt="Bambu Lab A1" />
+          <div class="model">A1</div>
+          <div class="desc">高精度入門型3D打印機，適合家庭與教育。</div>
+          <ul class="features">
+            <li>高速列印</li>
+            <li>自動校準</li>
+            <li>簡易操作</li>
+          </ul>
+          <div class="price">HKD 2,599</div>
+        </div>
+        <div class="product-card">
+          <img src="https://i.imgur.com/2fCwT2k.jpg" alt="Bambu Lab A1 mini" />
+          <div class="model">A1 mini</div>
+          <div class="desc">小巧機身，適合個人與桌面使用。</div>
+          <ul class="features">
+            <li>安靜列印</li>
+            <li>易維護</li>
+            <li>精巧設計</li>
+          </ul>
+          <div class="price">HKD 1,699</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- H系列分頁 -->
+    <section id="page-h-series" style="display:none;">
+      <h1>H系列 3D打印機</h1>
+      <div class="product-series">
+        <div class="product-card">
+          <img src="https://i.imgur.com/cCa7Y2X.jpg" alt="Bambu Lab H2D" />
+          <div class="model">H2D</div>
+          <div class="desc">工業級高穩定列印，適合專業應用。</div>
+          <ul class="features">
+            <li>大尺寸列印空間</li>
+            <li>高精度</li>
+            <li>模組化設計</li>
+          </ul>
+          <div class="price">HKD 15,699</div>
+        </div>
+        <div class="product-card">
+          <img src="https://i.imgur.com/JQ6CR5y.jpg" alt="Bambu Lab H2D Pro" />
+          <div class="model">H2D Pro</div>
+          <div class="desc">旗艦機型，集成多種先進功能。</div>
+          <ul class="features">
+            <li>多種列印模式</li>
+            <li>智能監控</li>
+            <li>高穩定性</li>
+          </ul>
+          <div class="price">HKD 29,499</div>
+        </div>
+        <div class="product-card">
+          <img src="https://i.imgur.com/y0MyJ1i.jpg" alt="Bambu Lab H2S" />
+          <div class="model">H2S</div>
+          <div class="desc">高精高速印，封閉恆溫。</div>
+          <ul class="features">
+            <li>多工智慧</li>
+            <li>封閉恆溫</li>
+          </ul>
+          <div class="price">HKD 9,999</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- P系列分頁 -->
+    <section id="page-p-series" style="display:none;">
+      <h1>P系列 3D打印機</h1>
+      <div class="product-series">
+        <div class="product-card">
+          <img src="https://i.imgur.com/KyQy3y6.jpg" alt="Bambu Lab P1S" />
+          <div class="model">P1S</div>
+          <div class="desc">專業級高速打印，封閉式機箱。</div>
+          <ul class="features">
+            <li>高速列印</li>
+            <li>封閉式控溫</li>
+            <li>多材料兼容</li>
+          </ul>
+          <div class="price">HKD 4,299</div>
+        </div>
+        <div class="product-card">
+          <img src="https://i.imgur.com/1Bv8b4L.jpg" alt="Bambu Lab P2S" />
+          <div class="model">P2S <span style="font-size:.9em;color:#ff4040;">熱銷</span></div>
+          <div class="desc">進階版封閉式機型，適合高要求專業應用。</div>
+          <ul class="features">
+            <li>進階環境控制</li>
+            <li>超高速列印</li>
+            <li>穩定性提升</li>
+          </ul>
+          <div class="price">HKD 4,999</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 關於我們 -->
+    <section id="page-about" style="display:none;">
+      <div class="about-section">
+        <h1>關於我們</h1>
+        <p><span class="highlight">Bambu Lab 拓竹</span>是一家專注於3D打印技術創新的高科技公司。自創立以來，我們致力於將最先進的3D打印解決方案帶入每一個家庭、教室與創客空間，讓創造力成為每個人的日常。</p>
+        <p>我們的團隊由來自全球的工程師、設計師和3D打印愛好者組成，憑藉豐富的行業經驗與對技術的熱情，不斷突破自我，研發出一系列高效、易用且智能的3D打印機。無論是初學者、教育工作者還是專業設計師，都能在Bambu Lab找到適合自己的創作工具。</p>
+        <h2>我們的使命</h2>
+        <p>我們相信，科技的真正價值在於服務生活、啟發創意。<span class="highlight">Bambu Lab 拓竹</span>致力於推動3D打印技術普及，為用戶帶來「更快、更好、更智能」的打印體驗，助力每一個夢想的實現。</p>
+        <h2>核心價值</h2>
+        <ul>
+          <li><span class="highlight">創新驅動</span>：不斷追求產品與技術的突破，打造行業領先的3D打印解決方案。</li>
+          <li><span class="highlight">用戶至上</span>：以用戶需求為核心，提供貼心的產品設計與售後服務。</li>
+          <li><span class="highlight">品質承諾</span>：嚴格把控產品品質，確保每一台3D打印機都值得信賴。</li>
+          <li><span class="highlight">綠色可持續</span>：積極推動環保材料與可持續發展，為地球盡一份心力。</li>
+        </ul>
+        <h2>讓創意無限延伸</h2>
+        <p>無論你是DIY愛好者，還是專業創客，Bambu Lab都願成為你創意實現路上的堅強夥伴。未來，我們將持續引領3D打印技術革新，攜手用戶共同探索無限可能。</p>
+      </div>
+    </section>
+
+    <!-- 聯絡我們 -->
+    <section id="page-contact" style="display:none;">
+      <h1>聯絡我們</h1>
+      <a class="whatsapp-btn" target="_blank" href="https://wa.me/85254442474">
+        <svg viewBox="0 0 32 32"><path d="M16 3C9.383 3 4 8.383 4 15c0 2.417.687 4.678 1.987 6.676L4.06 29.032a1 1 0 0 0 1.246 1.246l7.356-1.927A11.93 11.93 0 0 0 16 27c6.617 0 12-5.383 12-12S22.617 3 16 3zm0 2c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10a9.95 9.95 0 0 1-4.766-1.215l-.376-.207-5.162 1.353 1.353-5.162-.207-.376A9.95 9.95 0 0 1 6 15c0-5.523 4.477-10 10-10zm-4.318 6.015c-.305 0-.606.011-.888.06a2.273 2.273 0 0 0-1.14 3.877c.063.062.125.125.187.187.32.318.635.648.964.964.332.319.7.594 1.057.876.261.207.531.393.809.574.278.182.552.366.848.516.33.17.686.305 1.047.399.225.06.498.145.76.084.267-.062.507-.239.672-.402.146-.146.271-.304.385-.45.326-.416.368-.999.104-1.444-.101-.17-.215-.33-.338-.478a.998.998 0 0 0-.224-.187c-.094-.064-.188-.127-.282-.186a2.637 2.637 0 0 1-.843-.676c-.094-.109-.186-.22-.276-.333-.086-.11-.168-.223-.246-.338-.13-.195-.252-.4-.373-.601-.08-.132-.158-.265-.236-.399-.12-.204-.242-.406-.36-.613-.058-.103-.114-.208-.17-.315-.06-.116-.123-.226-.189-.336-.104-.183-.241-.36-.401-.524-.13-.132-.291-.256-.449-.32zm.035 1.957c.023.037.048.075.073.113.118.187.24.381.36.571.057.093.112.188.167.283.116.201.234.399.348.594.073.123.147.245.222.367.09.142.18.285.275.423.129.178.27.331.409.454.322.283.644.565.973.838.093.077.187.153.281.229.07.058.141.116.211.174.006.004.013.007.02.01a.174.174 0 0 0 .029.004l-.004-.004c-.012-.037-.027-.075-.048-.111-.072-.127-.154-.251-.241-.371-.076-.104-.154-.207-.234-.308-.094-.122-.188-.243-.282-.365-.059-.075-.118-.149-.177-.225-.117-.146-.236-.293-.354-.438-.06-.074-.12-.147-.18-.22-.073-.089-.148-.176-.222-.262-.016-.018-.033-.035-.05-.052-.003-.004-.005-.007-.008-.01zm2.513.03c.062.004.12.025.173.062.058.04.117.084.176.13.076.06.153.121.229.18.123.099.246.196.369.295.091.073.18.148.268.224.093.08.184.162.274.246.064.06.127.12.191.181.003.003.006.006.008.009.02.024.04.048.059.073-.002 0-.003-.002-.003-.002a.173.173 0 0 0-.005-.029c-.003-.007-.006-.014-.01-.021-.058-.07-.116-.141-.174-.211-.076-.092-.153-.184-.229-.276-.074-.091-.147-.182-.22-.273-.103-.13-.206-.26-.309-.391-.036-.045-.072-.09-.109-.134zm3.334 2.484a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+        Whatsapp查詢 +852 5444 2474
+      </a>
+      <form class="contact-form" onsubmit="return submitContactForm(event)">
+        <label for="name">姓名</label>
+        <input type="text" id="name" name="name" required placeholder="請輸入您的姓名" />
+        <label for="email">電郵</label>
+        <input type="email" id="email" name="email" required placeholder="請輸入您的電郵" />
+        <label for="msg">留言</label>
+        <textarea id="msg" name="msg" rows="4" required placeholder="請輸入您的查詢內容"></textarea>
+        <button type="submit">送出</button>
+      </form>
+      <div id="contact-success" style="display:none;text-align:center;color:#33ff99;">已送出，感謝您的查詢！我們會盡快回覆。</div>
+      <div class="faq-section">
+        <h2 style="text-align:center;">FAQ 常見問題</h2>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Q：可以支援哪些材料？</button>
+          <div class="faq-a">Bambu Lab系列可支援PLA、PETG、ABS、TPU、PA等常用3D打印材料，部分機種亦支援高溫工程塑料。</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Q：購買有保養嗎？</button>
+          <div class="faq-a">香港地區購機均享有一年原廠保養，亦可加購延長保養。</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Q：可以安裝在學校/公司/工作坊嗎？</button>
+          <div class="faq-a">完全可以！Bambu Lab列印機已被廣泛應用於學校、設計公司與創客空間。</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Q：是否支援多色/多材料列印？</button>
+          <div class="faq-a">部分型號（如A1 Combo、AMS 2 Pro配合）支援多色及多材料自動切換。</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function showPage(page) {
+      document.querySelectorAll('section[id^="page-"]').forEach(function(sec){
+        sec.style.display = 'none';
+      });
+      document.getElementById('page-' + page).style.display = '';
+      document.querySelectorAll('.nav-link').forEach(function(link){
+        link.classList.remove('active');
+      });
+      if(page === 'home') document.getElementById('nav-home').classList.add('active');
+      if(page === 'a-series') document.getElementById('nav-a').classList.add('active');
+      if(page === 'h-series') document.getElementById('nav-h').classList.add('active');
+      if(page === 'p-series') document.getElementById('nav-p').classList.add('active');
+      if(page === 'about') document.getElementById('nav-about').classList.add('active');
+      if(page === 'contact') document.getElementById('nav-contact').classList.add('active');
+      window.scrollTo(0,0);
+    }
+    function toggleFaq(btn) {
+      let ans = btn.nextElementSibling;
+      ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
+    }
+    function submitContactForm(e) {
+      e.preventDefault();
+      document.querySelector('.contact-form').style.display = 'none';
+      document.getElementById('contact-success').style.display = '';
+      return false;
+    }
+  </script>
+</body>
+</html>
